@@ -15,7 +15,7 @@ public class WaterController : MonoBehaviour
     void Update()
     {
         if(Random.Range(0, 50) == 0){
-            GameObject generatedBubbles = Instantiate(Bubbles, new Vector3(Random.Range(-8F, 8F), -7.6F, -7.5F), Quaternion.identity) as GameObject;
+            Instantiate(Bubbles, new Vector3(Random.Range(-8F, 8F) + transform.position.x, -7.6F + transform.position.y, -7.5F), Quaternion.identity);
         }
 
     }
