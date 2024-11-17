@@ -18,7 +18,7 @@ public class bubbleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y > 6.8F){
+        if(transform.position.y > 6.8F + PlayerController.instance.GetPosition().y){
             Destroy(gameObject);
         }
     }
