@@ -17,8 +17,14 @@ public class BUbble : MonoBehaviour
         GetComponent<SpriteRenderer>().enabled = false;
     }
 
+    void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.CompareTag("Enemy")){
+            Destroy(gameObject);
+        }
+    }
+    
     void OnTriggerEnter2D(Collider2D other){
-        if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Wall")){
+        if(other.gameObject.CompareTag("Wall")){
             Destroy(gameObject);
         }
     }

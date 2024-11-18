@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
     public static PlayerController instance;
+    public static float AttackStat = 10f;
     private Rigidbody2D RB;
     private Animator PlayerAnimator;
     private Vector2 MovementVector;
@@ -100,5 +101,9 @@ public class PlayerController : MonoBehaviour
 
     public float GetDirection(){
         return Direction;
+    }
+    public static float GetAttackStat()
+    {
+        return AttackStat; 
     }
 }
