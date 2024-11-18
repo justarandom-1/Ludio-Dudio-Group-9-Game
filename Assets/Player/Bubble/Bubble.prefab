@@ -198,4 +198,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChargeTime: 0.15
-  speed: 15
+  speed: 25

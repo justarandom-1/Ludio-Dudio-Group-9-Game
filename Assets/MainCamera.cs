@@ -22,13 +22,13 @@ public class MainCamera : MonoBehaviour
     void Update()
     {
         float PlayerY = PlayerTransform.position.y;
-        if(-200 < PlayerY && PlayerY < 0){
-            float brightness = (PlayerY + 200) * 0.005F;
+        if(-230 < PlayerY && PlayerY < 0){
+            float brightness = (PlayerY + 230) / 230F;
             Water.color = new Color(brightness, brightness, brightness);
         }
 
 
-        transform.position = new Vector3(PlayerTransform.position.x + 3.5F, PlayerTransform.position.y, transform.position.z);
+        transform.position = new Vector3(PlayerTransform.position.x, PlayerTransform.position.y, transform.position.z);
         
         if(Random.Range(0, 50) == 0){
             Instantiate(Bubbles, new Vector3(Random.Range(-8F, 8F) + transform.position.x, -7.6F + transform.position.y, -7.5F), Quaternion.identity);
