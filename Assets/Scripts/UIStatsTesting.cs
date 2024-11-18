@@ -15,8 +15,8 @@ public class UIStatsTesting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Stats.text = "Health:"+PlayerController.health.ToString() + 
-                     "\nSpeed:"+PlayerController.speed.ToString() +
-                     "\nAttack:"+PlayerController.AttackStat.ToString();
+        Stats.text = "Health:"+PlayerController.instance.GetHealth().ToString() + 
+                     "\nSpeed:"+PlayerController.instance.GetSpeed().ToString() +
+                     "\nAttack:"+PlayerController.instance.GetAttackStat().ToString();
     }
 }

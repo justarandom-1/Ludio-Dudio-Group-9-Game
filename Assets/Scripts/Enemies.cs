@@ -7,7 +7,7 @@ public abstract class Enemies : MonoBehaviour
 {
     public float health = 100f;
     public float damage;
-    public float attackDamage = 10f;
+    public int attackDamage = 10;
     public float attackRange = 1f;
     public float attackCooldown = 1f;
     private float lastAttackTime = 0f;
@@ -84,7 +84,7 @@ public abstract class Enemies : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerAttack"))
         {
-            damage = PlayerController.GetAttackStat();
+            damage = PlayerController.instance.GetAttackStat();
             TakeDamage(damage);
             
         }
@@ -105,22 +105,22 @@ public abstract class Enemies : MonoBehaviour
         switch (boost)
         {
             case BoostType.Health:
-                PlayerController.AddHealth(8f);  // Example: Add health boost
+                PlayerController.instance.AddHealth(8);  // Example: Add health boost
                 break;
             case BoostType.Speed:
-                PlayerController.AddSpeed(3f);  // Example: Add speed boost
+                PlayerController.instance.AddSpeed(3f);  // Example: Add speed boost
                 break;
             case BoostType.Attack:
-                PlayerController.IncreaseAttack(5f);  // Example: Increase attack boost
+                PlayerController.instance.IncreaseAttack(5);  // Example: Increase attack boost
                 break;
             case BoostType.ExtraHealth:
-                PlayerController.AddHealth(20f);  // Example: Add health boost
+                PlayerController.instance.AddHealth(20);  // Example: Add health boost
                 break;
             case BoostType.ExtraSpeed:
-                PlayerController.AddSpeed(5f);  // Example: Add speed boost
+                PlayerController.instance.AddSpeed(5f);  // Example: Add speed boost
                 break;
             case BoostType.ExtraAttack:
-                PlayerController.IncreaseAttack(15f);  // Example: Increase attack boost
+                PlayerController.instance.IncreaseAttack(15);  // Example: Increase attack boost
                 break;
         }
     }

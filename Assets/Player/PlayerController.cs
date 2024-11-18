@@ -9,9 +9,9 @@ public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
     public static PlayerController instance;
-    public static float health = 50f;
-    public static float AttackStat = 10f;
-    public static float speed = 4f;
+    [SerializeField] int health;
+    [SerializeField] int AttackStat;
+    [SerializeField] float speed;
     private Rigidbody2D RB;
     private Animator PlayerAnimator;
     private Vector2 MovementVector;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Object Projectile;
     [SerializeField] AudioClip AttackSFX;
+    protected PlayerInput input;
     private void Start()
     {
         instance = this;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
         DashTime = 0;
         IsDashHeld = false;
         IsDashing = false;
+        input = GetComponent<PlayerInput>();
     }
 
     private void OnMove(InputValue value){
@@ -66,21 +68,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float enemyDamage)
+    public void TakeDamage(int enemyDamage)
     {
         Debug.Log("Player Health: " + health);
-        health -= enemyDamage;
-        if (health <= 0)
+        health = Mathf.Max(health - enemyDamage, 0);
+        if (health == 0)
         {
-            Debug.Log("Player Died");
+            this.Kill();
         }
+    }
+
+
+    public void Kill()
+    {
+        RB.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePosition;
+        input.enabled = false;
+        PlayerAnimator.Play("PlayerDeath");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("EnemyAttack"))
         {
-            Enemies enemy = other.GetComponent<Enemies>();
+            this.TakeDamage(other.gameObject.transform.parent.gameObject.GetComponent<Enemy>().GetAttackStat());
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Enemies enemy = other.gameObject.GetComponent<Enemies>();
             if (enemy != null && enemy.isDead)  
             {
                 PlayerAnimator.Play("attack");
@@ -122,21 +140,21 @@ public class PlayerController : MonoBehaviour
     }
     
     // Method to increase player's health
-    public static void AddHealth(float value)
+    public void AddHealth(int value)
     {
         health += value;
         Debug.Log("Player Health: " + health);
     }
 
     // Method to increase player's speed
-    public static void AddSpeed(float value)
+    public void AddSpeed(float value)
     {
         speed += value;
         Debug.Log("Player Speed: " + speed);
     }
 
     // Method to increase player's attack power
-    public static void IncreaseAttack(float value)
+    public void IncreaseAttack(int value)
     {
         AttackStat += value;
         Debug.Log("Player Attack: " + AttackStat);
@@ -149,8 +167,16 @@ public class PlayerController : MonoBehaviour
     public float GetDirection(){
         return Direction;
     }
-    public static float GetAttackStat()
+    public int GetAttackStat()
     {
         return AttackStat; 
+    }
+    public int GetHealth()
+    {
+        return health; 
+    }
+    public float GetSpeed()
+    {
+        return speed; 
     }
 }
