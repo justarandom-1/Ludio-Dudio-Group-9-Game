@@ -46,7 +46,7 @@ public class BUbble : MonoBehaviour
             }
         }
 
-        if(Mathf.Abs(transform.position.x - PlayerPosition.x) > 11){
+        if(Mathf.Abs(transform.position.x - PlayerPosition.x) > 15){
             Destroy(gameObject);
         }
     }
