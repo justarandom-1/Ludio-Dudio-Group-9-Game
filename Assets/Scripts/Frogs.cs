@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrogEnemy : Enemies
+public class Frogs : Enemies
 {
     public float patrolSpeed = 2f;       // Speed of the frog's horizontal movement (distance per jump).
     public float jumpHeight = 0.5f;        // Maximum height of the jump.
@@ -20,6 +20,8 @@ public class FrogEnemy : Enemies
     private Animator animator;
     private float lastJumpTime;
     private bool movingRight = true;     // Direction flag: true = moving right, false = moving left
+    
+
 
     private void Start()
     {
@@ -34,20 +36,26 @@ public class FrogEnemy : Enemies
     // Update is called once per frame
     new void Update()
     {
-        base.Update();  // Call the base class Update to handle attacks
-
-        // Only perform patrol logic when the frog is not already jumping and cooldown is over
-        if (!isJumping && Time.time - lastJumpTime >= jumpCooldown)
+        if (!isDead)
         {
-            Patrol();
+            base.Update();  // Call the base class Update to handle attacks
+            
+            // Only perform patrol logic when the frog is not already jumping and cooldown is over
+            if (!isJumping && Time.time - lastJumpTime >= jumpCooldown)
+            {
+                Patrol();
+            }
+            
+            // Handle jump progress when jumping
+            if (isJumping)
+            {
+                JumpProgress();
+            }
         }
-
-        // Handle jump progress when jumping
-        if (isJumping)
-        {
-            JumpProgress();
-        }
+        
     }
+    
+    
 
     // Patrolling: move by jumping back and forth for a set number of jumps
     private void Patrol()
@@ -146,18 +154,24 @@ public class FrogEnemy : Enemies
     }
 
     // Optionally, override the PerformAttack method if the frog has a special attack
-    protected override void PerformAttack()
+    public override void Attack()
     {
-        base.PerformAttack();
+        base.Attack();
         // Frog-specific attack (e.g., jumping attack or damage on landing)
         Debug.Log("Frog enemy attacks with a jump!");
     }
 
+    public override BoostType GetBoostType()
+    {
+         return BoostType.Health;
+    }
+    
     // Override die method to have frog-specific death behavior
     protected override void Die()
     {
         base.Die();
-        // You could add a frog death animation, sound effect, or special behavior
+        animator.SetBool("isDead", true);
+        GetBoostType();
         Debug.Log("Frog enemy has died!");
     }
 }

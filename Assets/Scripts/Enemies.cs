@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemies : MonoBehaviour
+public abstract class Enemies : MonoBehaviour
 {
     public float health = 100f;
     public float damage;
@@ -11,35 +11,73 @@ public class Enemies : MonoBehaviour
     public float attackRange = 1f;
     public float attackCooldown = 1f;
     private float lastAttackTime = 0f;
+    public bool isDead;
     
     public Transform player;
-    
+    public float followSpeed = 2f;
+    public abstract BoostType GetBoostType();
+
+    private void Start()
+    {
+        isDead = false;
+       
+    }
+
     // Update is called once per frame
     public void Update()
     {
-        Attack();
+        if (!isDead)
+        { 
+            player = GameObject.FindWithTag("Player").transform;
+            if (IsPlayerInRange())
+            {
+                FollowPlayer();
+            }
+        }
     }
-
-    // Handle enemy attack logic
-    public void Attack()
+    protected virtual void FollowPlayer()
     {
         if (player == null) return;
 
+        // Move towards the player at follow speed
+        float step = followSpeed * Time.deltaTime;
+        transform.position = Vector2.MoveTowards(transform.position, player.position, step);
+    }
+    
+    protected bool IsPlayerInRange()
+    {
+        if (player == null) return false;
+
+        // Calculate the distance between the enemy and the player
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-        if (distanceToPlayer <= attackRange && Time.time >= lastAttackTime + attackCooldown)
-        {
-            // Perform attack
-            PerformAttack();
-            lastAttackTime = Time.time;
-        }
+        // Return true if the player is within detection range
+        return distanceToPlayer <= attackRange;
     }
 
     // Actual attack implementation (can be overridden by derived classes)
-    protected virtual void PerformAttack()
+    public virtual void Attack()
     {
-        Debug.Log("Enemy attacks for " + attackDamage + " damage!");
-        // player.GetComponent<PlayerHealth>().TakeDamage(attackDamage);
+        if (Time.time >= lastAttackTime + attackCooldown)
+        {
+            player.GetComponent<PlayerController>().TakeDamage(attackDamage);
+            lastAttackTime = Time.time;
+
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (isDead && other.gameObject.CompareTag("Player"))
+        {
+            BoostType boost = GetBoostType(); 
+            GiveBoostToPlayer(boost); 
+            Debug.Log("Boost applied to player: " + boost);
+            Destroy(gameObject);
+        }else if (!isDead && other.gameObject.CompareTag("Player"))
+        {
+            Attack();
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -58,14 +96,50 @@ public class Enemies : MonoBehaviour
         health -= playerDamage;
         if (health <= 0)
         {
+            isDead = true;
             Die();
         }
+    }
+    private void GiveBoostToPlayer(BoostType boost)
+    {
+        switch (boost)
+        {
+            case BoostType.Health:
+                PlayerController.AddHealth(8f);  // Example: Add health boost
+                break;
+            case BoostType.Speed:
+                PlayerController.AddSpeed(3f);  // Example: Add speed boost
+                break;
+            case BoostType.Attack:
+                PlayerController.IncreaseAttack(5f);  // Example: Increase attack boost
+                break;
+            case BoostType.ExtraHealth:
+                PlayerController.AddHealth(20f);  // Example: Add health boost
+                break;
+            case BoostType.ExtraSpeed:
+                PlayerController.AddSpeed(5f);  // Example: Add speed boost
+                break;
+            case BoostType.ExtraAttack:
+                PlayerController.IncreaseAttack(15f);  // Example: Increase attack boost
+                break;
+        }
+    }
+
+    // Enum for different boost types
+    public enum BoostType
+    {
+        Health,
+        Speed,
+        Attack,
+        ExtraHealth,
+        ExtraSpeed,
+        ExtraAttack
     }
 
     // Handle enemy death
     protected virtual void Die()
     {
         Debug.Log("Enemy has died.");
-        Destroy(gameObject); // Destroy the enemy object on death
+       
     }
 }

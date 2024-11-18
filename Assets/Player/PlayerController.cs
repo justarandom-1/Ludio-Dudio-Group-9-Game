@@ -1,18 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Object = UnityEngine.Object;
 
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
     public static PlayerController instance;
+    public static float health = 50f;
     public static float AttackStat = 10f;
+    public static float speed = 4f;
     private Rigidbody2D RB;
     private Animator PlayerAnimator;
     private Vector2 MovementVector;
     private AudioSource AS;
-    [SerializeField] float speed;
     [SerializeField] float DashLimit;
     private bool IsDashHeld;
     private bool IsDashing;
@@ -63,6 +66,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float enemyDamage)
+    {
+        Debug.Log("Player Health: " + health);
+        health -= enemyDamage;
+        if (health <= 0)
+        {
+            Debug.Log("Player Died");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Enemies enemy = other.GetComponent<Enemies>();
+            if (enemy != null && enemy.isDead)  
+            {
+                PlayerAnimator.Play("attack");
+            }
+        }
+    }
+    
+
     // Update is called once per frame
     private void Update()
     {
@@ -93,6 +119,27 @@ public class PlayerController : MonoBehaviour
                 RB.velocity *= 2;
             }
         }
+    }
+    
+    // Method to increase player's health
+    public static void AddHealth(float value)
+    {
+        health += value;
+        Debug.Log("Player Health: " + health);
+    }
+
+    // Method to increase player's speed
+    public static void AddSpeed(float value)
+    {
+        speed += value;
+        Debug.Log("Player Speed: " + speed);
+    }
+
+    // Method to increase player's attack power
+    public static void IncreaseAttack(float value)
+    {
+        AttackStat += value;
+        Debug.Log("Player Attack: " + AttackStat);
     }
 
     public Vector3 GetPosition(){
