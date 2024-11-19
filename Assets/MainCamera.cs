@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainCamera : MonoBehaviour
 {
@@ -18,9 +19,30 @@ public class MainCamera : MonoBehaviour
         Water = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
+    void End(){
+        SceneManager.LoadScene("Ending");
+    }
+
+    bool IsAllEnemiesDead(){
+        var allEnemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+
+        for(int i = 0; i < allEnemies.Length; i++){
+            if(!allEnemies[i].getIsDead()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     // Update is called once per frame
     void Update()
     {
+
+        if(this.IsAllEnemiesDead){
+            this.End();
+        }
+
         float PlayerY = PlayerTransform.position.y;
         if(-230 < PlayerY && PlayerY < 0){
             float brightness = (PlayerY + 230) / 230F;

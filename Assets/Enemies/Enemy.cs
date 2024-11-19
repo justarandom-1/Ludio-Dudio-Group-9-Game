@@ -119,4 +119,8 @@ public class Enemy : MonoBehaviour
     public int GetAttackStat(){
         return atk;
     }
+
+    public bool GetIsDead(){
+        return hp == 0;
+    }
 }
