@@ -27,7 +27,7 @@ public class MainCamera : MonoBehaviour
         var allEnemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
 
         for(int i = 0; i < allEnemies.Length; i++){
-            if(!allEnemies[i].getIsDead()){
+            if(!allEnemies[i].IsDead()){
                 return false;
             }
         }
@@ -39,7 +39,7 @@ public class MainCamera : MonoBehaviour
     void Update()
     {
 
-        if(this.IsAllEnemiesDead){
+        if(this.IsAllEnemiesDead()){
             this.End();
         }
 

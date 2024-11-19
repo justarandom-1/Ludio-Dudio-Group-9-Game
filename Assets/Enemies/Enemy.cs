@@ -120,7 +120,7 @@ public class Enemy : MonoBehaviour
         return atk;
     }
 
-    public bool GetIsDead(){
+    public bool IsDead(){
         return hp == 0;
     }
 }
