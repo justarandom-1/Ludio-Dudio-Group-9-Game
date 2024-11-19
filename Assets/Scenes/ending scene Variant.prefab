@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1299502199776982327
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2381030950017264463, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 129ea6f2c400143378f829f98a59ffda, type: 3}
+    - target: {fileID: 3087048512271346985, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_Name
+      value: end scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4315680407922979621, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_text
+      value: The axolotl has had his taste of vengeance, will they absorb the power
+        of the sea, or restore the axolotls to their former glory?
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -21.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -11.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4354095744782602586, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7077547655140560458, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
+      propertyPath: m_Name
+      value: ending scene Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f5f8a7f5c82424524b99bccebdc4db0b, type: 3}
