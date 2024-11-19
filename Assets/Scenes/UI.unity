@@ -2792,6 +2792,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: menu
       objectReference: {fileID: 0}
+    - target: {fileID: 2202509747160688860, guid: e4a3b7f438c004670a6b2b11cffc3315, type: 3}
+      propertyPath: m_Color.a
+      value: 0.39215687
+      objectReference: {fileID: 0}
     - target: {fileID: 3113879041497460201, guid: e4a3b7f438c004670a6b2b11cffc3315, type: 3}
       propertyPath: m_Camera
       value: 
