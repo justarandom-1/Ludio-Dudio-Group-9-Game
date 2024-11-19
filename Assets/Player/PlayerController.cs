@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int AttackStat;
     [SerializeField] float speed;
     private Rigidbody2D RB;
+    private SpriteRenderer spriteRenderer;
     private Animator PlayerAnimator;
     private Vector2 MovementVector;
     private AudioSource AS;
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         instance = this;
+        spriteRenderer = GetComponent<SpriteRenderer>();
         RB = GetComponent<Rigidbody2D>();
         PlayerAnimator = GetComponent<Animator>();
         AS = GetComponent<AudioSource>();
@@ -154,6 +157,10 @@ public class PlayerController : MonoBehaviour
                     RB.velocity *= 2;
                 }
             }
+        }
+
+        if(health == 0 && !spriteRenderer.enabled){
+            SceneManager.LoadScene("GameOver");
         }
     }
     
