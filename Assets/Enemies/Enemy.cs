@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
 
             if(direction * transform.localScale.x < 0 && hp != 0)
             {
-                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y - 0.05F, transform.localScale.z);
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
             }
             if(!isActive && (PlayerController.instance.GetPosition() - transform.position).magnitude < range)
             {

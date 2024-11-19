@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation =  Quaternion.Euler (new Vector3(0f,0f,angle));
 
             if(Direction * transform.localScale.x < 0){
-                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y - 0.05F, transform.localScale.z);
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
             }
 
             RB.velocity = MovementVector / MovementVector.magnitude * speed;

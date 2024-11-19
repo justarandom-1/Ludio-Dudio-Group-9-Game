@@ -9,7 +9,7 @@ public class FrogController : Enemy
     new void Start()
     {
         base.Start();
-        boosts.Add(BoostType.Health);
+        // boosts.Add(BoostType.Health);
     }
 
     // Update is called once per frame

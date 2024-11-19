@@ -8,7 +8,6 @@ public class TadpoleController : Enemy
     new void Start()
     {
         base.Start();
-        boosts.Add(BoostType.Speed);
     }
     void OnCollisionEnter2D(Collision2D other){
         if(other.gameObject.CompareTag("Wall")){
