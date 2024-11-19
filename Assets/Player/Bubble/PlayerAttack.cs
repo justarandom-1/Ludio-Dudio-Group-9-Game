@@ -30,11 +30,20 @@ public class BUbble : MonoBehaviour
         if(time < ChargeTime){
             time += Time.deltaTime;
 
-            float PlayerDirection = PlayerController.instance.GetDirection();
-            transform.position = new Vector3(PlayerPosition.x + 1.1F * PlayerDirection, PlayerPosition.y - 0.1F, PlayerPosition.z + 0.01F);
-
             if(time >= ChargeTime){
-                RB.velocity = new Vector2(speed * PlayerDirection, 0);
+
+                float Direction = PlayerController.instance.GetDirection();
+
+                Vector2 MovementVector = PlayerController.instance.GetMovementVector();
+
+                float Angle = Mathf.Atan2(1.1F, -0.1F) * -1 + 0.5F * Mathf.PI * Direction;
+                
+                float PlayerAngle = Mathf.Atan2(MovementVector.x, MovementVector.y) * -1 + 0.5F * Mathf.PI * Direction;
+
+                float offset = Mathf.Sqrt(1.1F * 1.1F + 0.1F * 0.1F);
+
+                transform.position = new Vector3(PlayerPosition.x + offset * Mathf.Cos(Angle + PlayerAngle), PlayerPosition.y + offset * Mathf.Sin(Angle + PlayerAngle), PlayerPosition.z + 0.01F);
+                RB.velocity = speed * MovementVector / MovementVector.magnitude; 
                 GetComponent<Collider2D>().enabled = true;
                 GetComponent<SpriteRenderer>().enabled = true;
             }

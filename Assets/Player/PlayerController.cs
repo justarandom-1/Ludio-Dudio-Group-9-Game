@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private bool IsDashing;
     private float DashTime;
     private float Direction;
+    private bool isAtMouse;
 
     [SerializeField] AudioClip DashSFX;
 
@@ -40,15 +41,21 @@ public class PlayerController : MonoBehaviour
         IsDashHeld = false;
         IsDashing = false;
         input = GetComponent<PlayerInput>();
+
+        isAtMouse = false;
+
+        MovementVector = new Vector2(0, 0);
     }
 
-    private void OnMove(InputValue value){
-        MovementVector = value.Get<Vector2>();
+    void OnMouseOver()
+	{
+        isAtMouse = true;
+	}
 
-        if(MovementVector.x != 0){
-            Direction = MovementVector.x;
-        }
-    }
+    void OnMouseExit()
+	{
+        isAtMouse = false;
+	}
 
     void OnDash(InputValue value){
         if(value.Get<float>() == 1 && DashTime < DashLimit){
@@ -62,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(){
         if(!PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("attack")){
-            AS.PlayOneShot(AttackSFX);
+            AS.PlayOneShot(AttackSFX, 0.5F);
             PlayerAnimator.Play("attack");
             Instantiate(Projectile, new Vector3(transform.position.x + 1.1F * Direction, transform.position.y - 0.1F, transform.position.z + 0.01F), Quaternion.identity);
         }
@@ -110,31 +117,42 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(MovementVector.x * transform.localScale.x < 0){
-            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y - 0.05F, transform.localScale.z);
-        }
+        // Debug.Log(MovementVector);
+        if(!isAtMouse){
+            MovementVector = (Vector2)(Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
 
-        RB.velocity = MovementVector * speed;
-        // PlayerAnimator.SetInteger("VerticalDirection", (int)MovementVector.y);
+            Direction = MovementVector.x / Mathf.Abs(MovementVector.x);
 
-        if(IsDashHeld && !IsDashing && (MovementVector.x != 0 || MovementVector.y != 0)){
-            IsDashing = true;
-            AS.PlayOneShot(DashSFX);
-        }
+            float angle = Mathf.Atan2(MovementVector.x, MovementVector.y) * Mathf.Rad2Deg * -1 + 90 * Direction;
 
-        if(!IsDashHeld && IsDashing){
-            IsDashing = false;
-            DashTime = 0;
-        }
+            transform.rotation =  Quaternion.Euler (new Vector3(0f,0f,angle));
 
-        if(IsDashing){
-            DashTime += Time.deltaTime;
-            if(DashTime >= DashLimit){
-                IsDashHeld = false;
+            if(Direction * transform.localScale.x < 0){
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y - 0.05F, transform.localScale.z);
+            }
+
+            RB.velocity = MovementVector / MovementVector.magnitude * speed;
+            // PlayerAnimator.SetInteger("VerticalDirection", (int)MovementVector.y);
+
+            if(IsDashHeld && !IsDashing && (MovementVector.x != 0 || MovementVector.y != 0)){
+                IsDashing = true;
+                AS.PlayOneShot(DashSFX);
+            }
+
+            if(!IsDashHeld && IsDashing){
                 IsDashing = false;
                 DashTime = 0;
-            }else{
-                RB.velocity *= 2;
+            }
+
+            if(IsDashing){
+                DashTime += Time.deltaTime;
+                if(DashTime >= DashLimit){
+                    IsDashHeld = false;
+                    IsDashing = false;
+                    DashTime = 0;
+                }else{
+                    RB.velocity *= 2;
+                }
             }
         }
     }
@@ -166,6 +184,10 @@ public class PlayerController : MonoBehaviour
 
     public float GetDirection(){
         return Direction;
+    }
+
+    public Vector2 GetMovementVector(){
+        return MovementVector;
     }
     public int GetAttackStat()
     {
